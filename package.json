@@ -5,8 +5,8 @@
   "main": "./bin/www",
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "jest --coverage --coverageReporters=text-lcov | coveralls",
-    "test-m": "mocha",
+    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test": "mocha",
     "lint": "eslint"
   },
   "dependencies": {
