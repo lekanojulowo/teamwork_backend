@@ -20,15 +20,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-// app.use(path());
 
+app.use(fileUpload({ useTempFiles: true }));
 
-app.use(fileUpload({  
-  useTempFiles : true
-}));
+// Verify Token Function
+function verifyToken (req, res, next) {  
+  const bearerToken = req.headers['token'];
+  // Check if bearerToken is undefined
+  if (typeof bearerToken !== 'undefined') {
+    req.token = bearerToken;
+    // Call next middleware
+    next();
+  } else{
+    res.status(403)
+      .json({
+      "status": "error",
+      "error": "Forbidden: Unauthorize Access"
+    })
+  }
+}
 
 //Default Routes
-app.get('/', verifyToken, df.welcomeMsg);
+app.get('/', df.welcomeMsg);
 app.get('/api', verifyToken, df.welcomeAPIMsg);
 
 // User Routes
@@ -68,22 +81,6 @@ app.delete('/api/v1/gifs/:gifid/comments/:commentid', verifyToken, gifComments.d
 // Feed Routes
 app.get('/api/v1/feed', verifyToken, feed.getFeed);
 
-// Verify Token Function
-function verifyToken (req, res, next) {  
-  const bearerToken = req.headers['token'];
-  // Check if bearerToken is undefined
-  if(typeof bearerToken !== 'undefined'){
-    req.token = bearerToken;
-    // Call next middleware
-    next();
-  } else{
-    res.status(403)
-      .json({
-      "status": "error",
-      "error": "Forbidden: Unauthorize Access"
-    })
-  }
-}
 
 
 // production error handler
