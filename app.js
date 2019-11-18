@@ -24,8 +24,7 @@ app.use(cors());
 app.use(fileUpload({ useTempFiles: true }));
 
 // Verify Token Function
-function verifyToken (req, res, next) {
-  next();  
+function verifyToken (req, res, next) {  
   const bearerToken = req.headers['token'];
   // Check if bearerToken is undefined
   if (typeof bearerToken !== 'undefined') {
@@ -43,7 +42,8 @@ function verifyToken (req, res, next) {
 
 //Default Routes
 app.get('/', df.welcomeMsg);
-app.get('/api', verifyToken, df.welcomeAPIMsg);
+app.get('/api', df.welcomeAPIMsg);
+app.get('/api/v1', df.welcomeAPIMsg);
 
 // User Routes
 app.get('/api/v1/employees', verifyToken, users.getAllUsers);
