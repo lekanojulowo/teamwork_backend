@@ -48,13 +48,12 @@ const createUser = (req, res, next) => {
       })
     }
    
-    const {firstname, lastname, email, password, gender, jobrole, department, address} = req.body;
-    const values = [firstname, lastname, email, password, gender, jobrole, department, address];
+    const {firstName, lastName, email, password, gender, jobRole, department, address} = req.body;
+    const values = [firstName, lastName, email, password, gender, jobRole, department, address];
     db.one(`insert into ${table}(firstname, lastname, email, password, gender, jobrole, department, address) values($1, $2, $3, $4, $5, $6, $7, $8) returning userid`, [...values])  
       .then((data) => {
         const {userid} = data;
-        jwt.sign({userid, firstname, lastname }, '12345secret67890', {expiresIn: 24 * 60 * 60}, (err, usertoken) => {         
-        
+        jwt.sign({userid, firstName, lastName }, '12345secret67890', {expiresIn: 24 * 60 * 60}, (err, usertoken) => {
           res.status(200)
           .json({
             status: 'success',
