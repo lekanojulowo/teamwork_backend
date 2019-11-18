@@ -1,10 +1,10 @@
 {
-  "name": "express-generator",
-  "version": "0.0.0",
+  "name": "teamwork-backend",
+  "version": "1.0.0",
   "private": true,
   "main": "./bin/www",
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "test": "mocha",
     "lint": "eslint"
