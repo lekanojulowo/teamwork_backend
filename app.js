@@ -24,7 +24,8 @@ app.use(cors());
 app.use(fileUpload({ useTempFiles: true }));
 
 // Verify Token Function
-function verifyToken (req, res, next) {  
+function verifyToken (req, res, next) {
+  next();  
   const bearerToken = req.headers['token'];
   // Check if bearerToken is undefined
   if (typeof bearerToken !== 'undefined') {
